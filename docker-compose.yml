@@ -37,7 +37,7 @@ services:
     depends_on:
       gluetun:
         condition: service_healthy
-    entrypoint: sh -c "apk add --no-cache aria2 && aria2c --dir=/downloads --seed-time=0 --summary-interval=5 \"$$LINK\" && echo '🔥 Done.'"
+    entrypoint: sh -c "apk add --no-cache aria2 && aria2c --dir=/downloads --seed-time=0 --summary-interval=5 --listen-port=6881 --dht-listen-port=6881 --max-connection-per-server=16 --split=16 \"$$LINK\" && echo '🔥 Done.'"
     environment:
       LINK: ${LINK}
     restart: "no"
