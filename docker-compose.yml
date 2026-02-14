@@ -13,7 +13,7 @@ services:
       VPN_SERVICE_PROVIDER: mullvad
       VPN_TYPE: wireguard
       WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY}
-      WIREGUARD_ADDRESSES: ${WIREGUARD_ADDRESSES:-10.66.0.2/32}
+      WIREGUARD_ADDRESSES: ${WIREGUARD_ADDRESSES}
       TZ: Europe/Stockholm
       VPN_INTERFACE: wg0
       FIREWALL: "on"
@@ -37,7 +37,7 @@ services:
     depends_on:
       gluetun:
         condition: service_healthy
-    entrypoint: sh -c "apk add --no-cache aria2 && aria2c --dir=/downloads --seed-time=0 --summary-interval=5 \"$$MAGNET\" && echo '🔥 Done.'"
+    entrypoint: sh -c "apk add --no-cache aria2 && aria2c --dir=/downloads --seed-time=0 --summary-interval=5 \"$$LINK\" && echo '🔥 Done.'"
     environment:
-      MAGNET: ${MAGNET}
+      LINK: ${LINK}
     restart: "no"
